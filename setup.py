@@ -4,14 +4,14 @@ import setuptools
 setuptools.setup(
     name='s3select',
     version='0.0.13',
-    scripts=['s3select'],
+    scripts=['s3select/s3select.py'],
     author="Marko Baštovanović",
     author_email="marko.bast@gmail.com",
     description="S3 select utility package",
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/marko-bast/s3select",
-    packages=setuptools.find_packages(),
+    url="https://github.com/usdot-its-jpo-data-portal/s3select",
+    packages=['s3select'],
     classifiers=[
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.7',

@@ -239,7 +239,7 @@ def refresh_status_bar(
 def select(prefixes=None, verbose=False, profile=None, thread_count=150,
            count=False, limit=0, output_fields=None, field_delimiter=None,
            record_delimiter=None, where=None, max_retries=20,
-           with_filename=False):
+           with_filename=False, generate=False):
     if prefixes is None:
         raise Exception("S3 path prefix must be defined")
 
@@ -318,8 +318,11 @@ def select(prefixes=None, verbose=False, profile=None, thread_count=150,
                     print(clear_line, file=sys.stderr, end="")
                 if with_filename:
                     print(matched_s3_path + "\t" + record)
+                elif generate:
+                    yield record
                 else:
                     print(record)
+
                 refresh_status_bar(
                     files_processed, records_matched, bytes_scanned, verbose)
                 if 0 < limit <= records_matched:
