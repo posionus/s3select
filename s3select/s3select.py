@@ -105,9 +105,9 @@ class ScanOneKey(threading.Thread):
                     self.record_delimiter is not None:
 
                 if self.field_delimiter is None:
-                    self.field_delimiter = "\n"
+                    self.field_delimiter = ","
                 if self.record_delimiter is None:
-                    self.record_delimiter = ","
+                    self.record_delimiter = "\n"
 
                 input_ser = {
                     'CSV':
@@ -239,7 +239,8 @@ def refresh_status_bar(
 def select(prefixes=None, verbose=False, profile=None, thread_count=150,
            count=False, limit=0, output_fields=None, field_delimiter=None,
            record_delimiter=None, where=None, max_retries=20,
-           with_filename=False, generate=False):
+           with_filename=False):
+
     if prefixes is None:
         raise Exception("S3 path prefix must be defined")
 
@@ -318,8 +319,6 @@ def select(prefixes=None, verbose=False, profile=None, thread_count=150,
                     print(clear_line, file=sys.stderr, end="")
                 if with_filename:
                     print(matched_s3_path + "\t" + record)
-                elif generate:
-                    yield record
                 else:
                     print(record)
 
