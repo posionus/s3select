@@ -239,7 +239,7 @@ def refresh_status_bar(
 def select(prefixes=None, verbose=False, profile=None, thread_count=150,
            count=False, limit=0, output_fields=None, field_delimiter=None,
            record_delimiter=None, where=None, max_retries=20,
-           with_filename=False):
+           with_filename=False, estimate_cost=False):
 
     if prefixes is None:
         raise Exception("S3 path prefix must be defined")
@@ -342,6 +342,7 @@ def select(prefixes=None, verbose=False, profile=None, thread_count=150,
 
         refresh_status_bar(
             files_processed, records_matched, bytes_scanned, verbose)
+    if verbose and estimate_cost:
         print("\nCost for data scanned: ${0:.2f}"
               .format(price_for_bytes_scanned), file=sys.stderr)
         print("Cost for data returned: ${0:.2f}"
@@ -431,6 +432,14 @@ if __name__ == "__main__":
         default=20,
         help="Maximum number of retries per queried S3 object in case API "
              "request fails"
+    )
+
+    parser.add_argument(
+        "-e",
+        "--estimate_cost",
+        action='store_true',
+        help="Provide cost estimate associated with query. Only works with verbose "
+            "flag on."
     )
 
     args = parser.parse_args()
