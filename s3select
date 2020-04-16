@@ -342,16 +342,16 @@ def select(prefixes=None, verbose=False, profile=None, thread_count=150,
 
         refresh_status_bar(
             files_processed, records_matched, bytes_scanned, verbose)
-    if verbose and estimate_cost:
-        print("\nCost for data scanned: ${0:.2f}"
-              .format(price_for_bytes_scanned), file=sys.stderr)
-        print("Cost for data returned: ${0:.2f}"
-              .format(price_for_bytes_returned), file=sys.stderr)
-        print("Cost for SELECT requests: ${0:.2f}"
-              .format(price_for_requests), file=sys.stderr)
-        total_cost = price_for_bytes_scanned + price_for_bytes_returned \
-                     + price_for_requests
-        print("Total cost: ${0:.2f}".format(total_cost), file=sys.stderr)
+        if estimate_cost:
+            print("\nCost for data scanned: ${0:.2f}"
+                  .format(price_for_bytes_scanned), file=sys.stderr)
+            print("Cost for data returned: ${0:.2f}"
+                  .format(price_for_bytes_returned), file=sys.stderr)
+            print("Cost for SELECT requests: ${0:.2f}"
+                  .format(price_for_requests), file=sys.stderr)
+            total_cost = price_for_bytes_scanned + price_for_bytes_returned \
+                         + price_for_requests
+            print("Total cost: ${0:.2f}".format(total_cost), file=sys.stderr)
 
 
 if __name__ == "__main__":
