@@ -9,6 +9,7 @@ from six.moves import queue
 import threading
 import sys
 import time
+import _queue
 
 _sentinel = object()
 max_result_limit_reached = False
@@ -289,8 +290,10 @@ def select(prefixes=None, verbose=False, profile=None, thread_count=150,
 
         if max_result_limit_reached:
             break
-
-        event = events_queue.get(timeout=queue_timeout)
+        try:
+            event = events_queue.get(timeout=queue_timeout)
+        except _queue.Empty:
+            exit()
 
         matched_s3_path = event.s3_path
 
