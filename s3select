@@ -239,7 +239,7 @@ def refresh_status_bar(
 def select(prefixes=None, verbose=False, profile=None, thread_count=150,
            count=False, limit=0, output_fields=None, field_delimiter=None,
            record_delimiter=None, where=None, max_retries=20,
-           with_filename=False, estimate_cost=False):
+           with_filename=False, estimate_cost=False, queue_timeout=10):
 
     if prefixes is None:
         raise Exception("S3 path prefix must be defined")
@@ -290,7 +290,7 @@ def select(prefixes=None, verbose=False, profile=None, thread_count=150,
         if max_result_limit_reached:
             break
 
-        event = events_queue.get()
+        event = events_queue.get(timeout=queue_timeout)
 
         matched_s3_path = event.s3_path
 
@@ -440,6 +440,14 @@ if __name__ == "__main__":
         action='store_true',
         help="Provide cost estimate associated with query. Only works with verbose "
             "flag on."
+    )
+
+    parser.add_argument(
+        "-T",
+        "--queue_timeout",
+        type=int,
+        default=10,
+        help="Change timeout value for queue (in seconds). Default: 10."
     )
 
     args = parser.parse_args()
