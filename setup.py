@@ -1,17 +1,16 @@
 # coding=utf-8
-import setuptools
+from setuptools import find_packages, setup
 
-setuptools.setup(
+setup(
     name='s3select',
     version='0.0.13',
-    scripts=['s3select'],
     author="Marko Baštovanović",
     author_email="marko.bast@gmail.com",
     description="S3 select utility package",
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
     url="https://github.com/usdot-its-jpo-data-portal/s3select",
-    # packages=['s3select'],
+    packages=find_packages(),
     classifiers=[
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.7',
