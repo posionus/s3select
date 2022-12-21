@@ -2,6 +2,7 @@
 from setuptools import find_packages, setup
 
 setup(
+    include_package_data=True,
     name='s3select',
     version='0.0.13',
     author="Marko Baštovanović",
@@ -9,7 +10,7 @@ setup(
     description="S3 select utility package",
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/usdot-its-jpo-data-portal/s3select",
+    url="https://github.com/posionus/s3select",
     packages=find_packages(),
     classifiers=[
         'Programming Language :: Python :: 2.7',
